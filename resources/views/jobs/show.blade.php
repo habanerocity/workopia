@@ -57,6 +57,7 @@
             </div>
 
             <div class="container mx-auto p-4">
+                @if($job->requirements || $job->benefits)
                 <h2 class="text-xl font-semibold mb-4">Job Details</h2>
                 <div class="rounded-lg shadow-md bg-white p-4">
                     <h3
@@ -76,6 +77,7 @@
                         {{ $job->benefits }}
                     </p>
                 </div>
+                @endif
                 <p class="my-5">
                     Put "Job Application" as the subject of your email
                     and attach your resume.
@@ -97,15 +99,20 @@
             <h3 class="text-xl text-center mb-4 font-bold">
                 Company Info
             </h3>
+            @if($job->company_logo)
             <img
                 src="/images/{{ $job->company_logo }}"
                 alt="Ad"
                 class="w-full rounded-lg mb-4 m-auto"
             />
+            @endif
             <h4 class="text-lg font-bold">{{$job->company_name}}</h4>
+            @if($job->company_description)
             <p class="text-gray-700 text-lg my-3">
                 {{ $job->company_description }}
             </p>
+            @endif
+            @if($job->company_website)
             <a
                 href="{{ $job->company_website }}"
                 target="_blank"
@@ -119,6 +126,7 @@
                 ><i class="fas fa-bookmark mr-3"></i> Bookmark
                 Listing</a
             >
+            @endif
         </aside>
     </div>
 </x-layout>
