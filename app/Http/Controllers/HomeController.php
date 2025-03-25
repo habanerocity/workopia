@@ -9,6 +9,8 @@ use Illuminate\View\View;
 
 class HomeController extends Controller
 {
+    // @desc Show home index view
+    // @route Get /
     public function index(): View
     {
         $jobs = Job::latest()->limit(6)->get();
