@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
+
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -22,7 +23,7 @@ class JobController extends Controller
 
     // @desc Show create job listings form
     // @route Get /jobs/create
-    public function create():View
+    public function create(): View
     {
         return view('jobs.create');
     }
