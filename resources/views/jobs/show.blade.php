@@ -10,8 +10,7 @@
                         <i class="fa fa-arrow-alt-circle-left"></i>
                         Back To Listings
                     </a>
-                    @auth
-                    @if(auth()->user()->id === $job->user_id)
+                    @can('update', $job)
                     <div class="flex space-x-3 ml-4">
                         <a
                             href="{{ route('jobs.edit', $job->id) }}"
@@ -31,8 +30,7 @@
                         </form>
                         <!-- End Delete Form -->
                     </div>
-                    @endif
-                    @endauth
+                    @endcan
                 </div>
                 <div class="p-4">
                     <h2 class="text-xl font-semibold">
