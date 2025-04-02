@@ -8,6 +8,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 class AuthServiceProvider extends ServiceProvider
 {
+    //@desc assign job model to job policy
     protected $policies = [
         Job::class => JobPolicy::class
     ];
