@@ -7,7 +7,7 @@
         <x-nav-link url="/" title="Home page" :active="request()->is('/')">Home</x-nav-link>
         <x-nav-link url="/jobs" title="Jobs page" :active="request()->is('jobs')">All Jobs</x-nav-link>
         @auth
-        <x-nav-link url="/jobs/saved" title="Saved jobs page" :active="request()->is('jobs/saved')">Saved Jobs</x-nav-link>
+        <x-nav-link url="/bookmarks" title="Saved jobs page" :active="request()->is('bookmarks')">Saved Jobs</x-nav-link>
         <x-nav-link url="/dashboard" title="Dashboard page" :active="request()->is('dashboard')" icon="gauge">Dashboard</x-nav-link>
         <x-logout-button />
         <div class="flex items-center space-x-3">
