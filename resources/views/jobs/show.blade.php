@@ -82,16 +82,65 @@
                     </p>
                 </div>
                 @endif
+                @auth
                 <p class="my-5">
                     Put "Job Application" as the subject of your email
                     and attach your resume.
                 </p>
-                <a
-                    href="mailto:{{ $job->email }}"
-                    class="block w-full text-center px-5 py-2.5 shadow-sm rounded border text-base font-medium cursor-pointer text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
-                >
-                    Apply Now
-                </a>
+                <div x-data="{ open: {{ $errors->any() ? 'true' : 'false' }} }">
+                    <button
+                        @click="open = true" 
+                        class="block w-full text-center px-5 py-2.5 shadow-sm rounded border text-base font-medium cursor-pointer text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
+                    >
+                        Apply Now
+                    </button>
+                    <div x-show="open" x-cloak class="fixed inset-0 flex items-center justify-center bg-gray-900/50">
+                        <div @click.away="open = false" class="bg-white p-6 rounded-lg shadow-md w-full max-w-md max-h-[90vh] overflow-y-auto">
+                            <h3 class="text-lg font-semibold mb-4">
+                                Apply For {{ $job->title }}
+                            </h3>
+                            
+                            {{-- Success message --}}
+                            @if (session('success'))
+                                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            
+                            {{-- Error display --}}
+                            @if ($errors->any())
+                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                                    <ul class="list-disc list-inside">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            
+                            <form method="POST" action="{{ route('applicant.store', $job->id) }}" enctype="multipart/form-data">
+                            @csrf
+                            <x-inputs.text id="full_name" name="full_name" label="Full Name" value="{{ old('full_name') }}" :required="true"/> 
+                            <x-inputs.text id="contact_phone" name="contact_phone" label="Contact Phone" value="{{ old('contact_phone') }}"/> 
+                            <x-inputs.text id="contact_email" name="contact_email" label="Contact Email" value="{{ old('contact_email') }}" :required="true"/> 
+                            <x-inputs.text-area id="message" name="message" label="Message" value="{{ old('message') }}"/> 
+                            <x-inputs.text id="location" name="location" label="Location" value="{{ old('location') }}"/>
+                            <x-inputs.file id="resume" name="resume" label="Upload Your Resume (pdf)" :required="true" />
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                                Submit Application
+                            </button>
+                            <button type="button" @click="open = false" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded-md">
+                                Cancel
+                            </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @else
+                <p class="my-5 bg-gray-200 rounded-lg p-3">
+                   <i class="fas fa-info-circle mr-3"></i> You must be logged in to apply for this job
+                </p>
+                @endauth
             </div>
 
             <div class="bg-white p-6 rounded-lg shadow-md mt-6">
@@ -110,6 +159,7 @@
                 class="w-full rounded-lg mb-4 m-auto"
             />
             @endif
+            
             <h4 class="text-lg font-bold">{{$job->company_name}}</h4>
             @if($job->company_description)
             <p class="text-gray-700 text-lg my-3">
