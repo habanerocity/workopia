@@ -8,6 +8,14 @@
 </head>
 <body>
     <p>There has been a new application for your Workopia job posting.</p>
+    <p><strong>Job Title:</strong> {{ $job->title }}</p>
+    <p><strong>Job Details:</strong></p>
+    <p><strong>Full Name:</strong> {{ $application->full_name }}</p>
+    <p><strong>Contact Phone Number:</strong> {{ $application->contact_phone }}</p>
+    <p><strong>Contact Email:</strong> {{ $application->contact_email }}</p>
+    <p><strong>Message:</strong> {{ $application->message }}</p>
+    <p><strong>Location:</strong> {{ $application->location }}</p>
+
     <p>Login to your Workopia account to view the application.</p>
 </body>
 </html>
